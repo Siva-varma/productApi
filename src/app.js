@@ -11,6 +11,10 @@ const app = express();
 
 // Adding the middlewares
 app.use(express.json());
+
+// here you missed this middleware without this how a form
+app.use(express.urlencoded({ extended: true }));
+
 app.use(cookieParser());
 
 // Connecting to the DB
@@ -19,9 +23,9 @@ await connectDB();
 // adding the /api router
 app.use("/api", mainRouter);
 
-// added a ping route to keep the server awake on render 
+// added a ping route to keep the server awake on render
 app.get("/ping", (req, res) => {
-    return ApiResponse(res, 200, "Server is working");
+  return ApiResponse(res, 200, "Server is working");
 });
 
 app.use(errorMiddleware);
